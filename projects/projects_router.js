@@ -16,22 +16,63 @@ router.get('/', (req, res) => {
 		});
 });
 
+//get resources
+router.get('/', (req, res) => {
+	Projects.getResources()
+		.then(resources => {
+			console.log('working');
+			res.json(resources);
+		})
+		.catch(err => {
+			res.status(500).json({ message: 'Failed to get resources' });
+		});
+});
+
+//get tasks
 router.get('/:id/tasks', (req, res) => {
 	const { id } = req.params;
-
+	console.log(id);
 	Projects.getTasks(id)
 		.then(tasks => {
 			console.log('tasks', tasks);
-			if (tasks.length) {
-				res.json(tasks);
-			} else {
-				res
-					.status(404)
-					.json({ message: 'Could not find tasks for given project' });
-			}
+			res.json(tasks);
 		})
 		.catch(err => {
 			res.status(500).json({ message: 'Failed to get tasks' });
+		});
+});
+
+//create project
+router.post('/', (req, res) => {
+	const project = req.body;
+
+	Projects.add(project)
+		.then(project => {
+			console.log(project);
+			res.status(201).json(project);
+		})
+		.catch(err => {
+			res.status(500).json({ message: 'Failed to create new project' });
+		});
+});
+
+//create task
+
+router.post('/:id/tasks', (req, res) => {
+	const { id } = req.params;
+
+	const task = req.body;
+
+	Projects.addTask(id)
+		.then(task => {
+			console.log('id', id);
+			console.log('task', task);
+
+			res.status(201).json(task);
+		})
+
+		.catch(err => {
+			res.status(500).json({ message: 'Failed to create new task' });
 		});
 });
 

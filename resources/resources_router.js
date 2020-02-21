@@ -16,4 +16,17 @@ router.get('/', (req, res) => {
 		});
 });
 
+//create resource
+router.post('/', (req, res) => {
+	const resource = req.body;
+
+	Resources.addResource(resource)
+		.then(resource => {
+			console.log(resource);
+			res.status(201).json(resource);
+		})
+		.catch(err => {
+			res.status(500).json({ message: 'Failed to create new resource' });
+		});
+});
 module.exports = router;

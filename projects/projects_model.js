@@ -5,23 +5,67 @@ function getProjects() {
 	return db('projects');
 }
 
+function getResources() {
+	return db('resources');
+}
+
 //retrieving a list of tasks, should include the project name and project description.
 function getTasks(id) {
-	return db('tasks as t')
-		.join('projects as p', 't.project_id', 'p.id')
+	return db('tasks')
 		.select(
-			'p.project_name as Project Name',
-			'p.description as Project Description',
-			't.description as Task',
-			't.notes as Notes'
+			'tasks.task_description as Task',
+			'tasks.notes as Notes',
+			'projects.project_name as Project Name',
+			'projects.description as Project Description'
 		)
-		.where('p.id', id);
+		.join('projects', 'projects.id', 'tasks.project_id')
+		.where('projects.id', id);
 }
-//adding resources
+
+function insert(tasks) {
+	return db('tasks')
+		.insert(tasks)
+		.then(([id]) => get(id));
+}
 
 //adding projects
+function add(project) {
+	return db('projects')
+		.insert(project, 'project')
+		.then(ids => {
+			return findById(ids[0]);
+		});
+}
+
+function addTask(task, project_id) {
+	console.log('here');
+	const newTask = {
+		project_id: project_id,
+		task_description: task.task_description,
+		notes: task.notes,
+		completed: false
+	};
+	return db('tasks').insert(newTask);
+}
+function findById(id) {
+	return db('projects')
+		.where({ id })
+		.first();
+}
+
+function findByIdR(id) {
+	return db('resources')
+		.where({ id })
+		.first();
+}
 
 module.exports = {
 	getProjects,
-	getTasks
+	getTasks,
+	add,
+	addTask,
+	findById,
+	insert,
+	getResources,
+	findByIdR
 };

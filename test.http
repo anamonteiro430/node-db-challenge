@@ -1,0 +1,45 @@
+@baseUrl = http://localhost:5000
+
+GET {{baseUrl}}/api/projects/
+
+###
+
+GET {{baseUrl}}/api/resources
+
+###
+
+GET {{baseUrl}}/api/projects/1/tasks
+
+###
+
+
+POST {{baseUrl}}/api/projects/
+content-type: application/json
+
+{
+    "project_name": "be happy",
+    "description": "how to be happy"
+}
+
+###
+
+
+POST {{baseUrl}}/api/projects/2/tasks
+content-type: application/json
+
+{
+    "task_description": "svssmsddile!",
+    "notes": "will work",
+    "completed":false
+}
+
+###
+POST {{baseUrl}}/api/resources/
+content-type: application/json
+
+{
+    "resource_name": "persosn",
+    "description": "more"
+}
+
+
