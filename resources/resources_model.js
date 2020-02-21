@@ -13,6 +13,12 @@ function addResource(resource) {
 		});
 }
 
+function findByIdR(id) {
+	return db('resources')
+		.where({ id })
+		.first();
+}
+
 //retrieving a list of tasks, should include the project name and project description.
 
 //adding resources
@@ -21,5 +27,6 @@ function addResource(resource) {
 
 module.exports = {
 	getResources,
-	addResource
+	addResource,
+	findByIdR
 };

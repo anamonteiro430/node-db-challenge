@@ -28,7 +28,7 @@ POST {{baseUrl}}/api/projects/2/tasks
 content-type: application/json
 
 {
-    "task_description": "svssmsddile!",
+    "task_description": "cry!",
     "notes": "will work",
     "completed":false
 }
@@ -38,7 +38,7 @@ POST {{baseUrl}}/api/resources/
 content-type: application/json
 
 {
-    "resource_name": "persosn",
+    "resource_name": "perzxxxzsxxosn",
     "description": "more"
 }
 

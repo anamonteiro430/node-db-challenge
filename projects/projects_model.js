@@ -22,6 +22,10 @@ function getTasks(id) {
 		.where('projects.id', id);
 }
 
+function tasks() {
+	return db('tasks');
+}
+
 function insert(tasks) {
 	return db('tasks')
 		.insert(tasks)
@@ -38,7 +42,6 @@ function add(project) {
 }
 
 function addTask(task, project_id) {
-	console.log('here');
 	const newTask = {
 		project_id: project_id,
 		task_description: task.task_description,
@@ -66,6 +69,7 @@ module.exports = {
 	addTask,
 	findById,
 	insert,
+	tasks,
 	getResources,
 	findByIdR
 };
